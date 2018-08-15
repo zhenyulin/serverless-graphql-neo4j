@@ -1,0 +1,22 @@
+---
+language: node_js
+cache:
+  directories:
+    - node_modules
+    - $(npm config get prefix)/bin
+    - $(npm config get prefix)/lib/node_modules
+install:
+  # serverless plugin packages are required for `sls` command
+  - make install
+  # global packages to run sls and npx command in Makefile
+  - npm i -g serverless npx
+script:
+  - make test-coverage
+  - make integration-test
+after_script:
+  - cat coverage/lcov.info | coveralls
+  - make deploy
+  - make deploy-production
+branches:
+  only:
+    - master
