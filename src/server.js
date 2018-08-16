@@ -14,6 +14,11 @@ const server = new ApolloServer({
 		driver,
 		req,
 	}),
+	playground: {
+		settings: {
+			'editor.cursorShape': 'line',
+		},
+	},
 });
 
 const handler = server.createHandler();
