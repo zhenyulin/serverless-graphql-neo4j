@@ -16,7 +16,6 @@ script:
 after_script:
   - cat coverage/lcov.info | coveralls
   - make deploy
-  - make deploy-production
 branches:
   only:
     - master
