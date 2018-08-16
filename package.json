@@ -2,11 +2,10 @@
   "name": "serverless-graphql-neo4j",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.3",
-    "express-graphql": "^0.6.12",
+    "apollo-server-lambda": "^2.0.2",
     "graphql": "^0.13.2",
-    "graphql-tools": "^3.1.1",
-    "serverless-http": "^1.6.0"
+    "neo4j-driver": "^1.6.3",
+    "neo4j-graphql-js": "^0.1.31"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -29,6 +28,7 @@
     "jest": "^23.4.1",
     "nodemon": "^1.18.2",
     "prettier": "^1.13.7",
+    "serverless-dotenv-plugin": "^1.2.0",
     "serverless-dynamodb-local": "^0.2.30",
     "serverless-offline": "^3.25.6",
     "serverless-plugin-create-deployment-bucket": "^0.0.2",

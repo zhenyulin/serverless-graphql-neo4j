@@ -12,7 +12,7 @@ provider:
 
 functions:
   graphql:
-    handler: src/graphql/server.default
+    handler: src/server.default
     events:
       - http:
           path: graphql
@@ -25,6 +25,7 @@ functions:
 
 plugins:
   - serverless-plugin-create-deployment-bucket
+  - serverless-dotenv-plugin
   - serverless-webpack
   - serverless-offline
 
