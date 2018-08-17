@@ -1,3 +1,6 @@
+export PATH := ./node_modules/.bin:$(PATH)
+SHELL := /bin/bash
+
 install:
 	@yarn
 
@@ -9,26 +12,26 @@ run:
 
 lint:
 	@echo 'linting…'
-	@npx eslint src
+	@eslint src
 
 lint-fix:
 	@echo 'lint-fixing…'
-	@npx eslint src --fix
+	@eslint src --fix
 
 lint-watch:
-	@npx nodemon --watch src -q --exec 'make lint-fix'
+	@nodemon --watch src -q --exec 'make lint-fix'
 
 test:
-	@npx jest --config jest.config.js
+	@jest --config jest.config.js
 
 test-watch:
-	@npx jest --watch --config jest.config.js
+	@jest --watch --config jest.config.js
 
 test-coverage:
-	@npx jest --coverage --config jest.config.js
+	@jest --coverage --config jest.config.js
 
 integration-test:
-	@INTEGRATION_TEST=true npx jest --config jest.config.js
+	@INTEGRATION_TEST=true jest --config jest.config.js
 
 deploy:
 	@sls deploy --verbose --stage dev --region eu-west-1
