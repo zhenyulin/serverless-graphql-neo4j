@@ -10,9 +10,9 @@ const driver = neo4j.driver(
 
 const server = new ApolloServer({
 	schema,
-	context: ({ req }) => ({
+	context: context => ({
+		...context,
 		driver,
-		req,
 	}),
 	playground: {
 		settings: {
