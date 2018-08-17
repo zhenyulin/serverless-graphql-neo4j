@@ -8,9 +8,9 @@ install:
   - make install
 script:
   - make test-coverage
-  - make integration-test
-after_script:
+after_success:
   - cat coverage/lcov.info | coveralls
+deploy:
   - make deploy
 branches:
   only:
