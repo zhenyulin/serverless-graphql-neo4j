@@ -1,14 +1,10 @@
 ---
 language: node_js
 cache:
+  yarn: true
   directories:
     - node_modules
-    # - $(npm config get prefix)/bin
-    # - $(npm config get prefix)/lib/node_modules
 install:
-  # global packages to run sls
-  # - npm i -g serverless
-  # serverless plugin packages are required for `sls` command
   - make install
 script:
   - make test-coverage
