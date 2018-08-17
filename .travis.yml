@@ -7,7 +7,7 @@ cache:
     - $(npm config get prefix)/lib/node_modules
 install:
   # global packages to run sls
-  - npm i -g serverless
+  # - npm i -g serverless
   # serverless plugin packages are required for `sls` command
   - make install
 script:

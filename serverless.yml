@@ -31,12 +31,12 @@ functions:
 
 plugins:
   - serverless-plugin-create-deployment-bucket
-  - serverless-dotenv-plugin
+  - serverless-dotenv-plugin  # for loading .env in local dev
   - serverless-webpack
   - serverless-offline
 
 custom:
+  defaultRegion: 'eu-west-1'
   webpack:
     packager: 'yarn'
     includeModules: true
-  defaultRegion: 'eu-west-1'
