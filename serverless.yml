@@ -9,6 +9,11 @@ provider:
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, self:custom.defaultRegion}
   deploymentBucket: ${self:service}-artefacts-${self:provider.region}
+  environment:
+    NODE_ENV: ${self:provider.stage}
+    NEO4J_URI: ${env:NEO4J_URI}
+    NEO4J_USER: ${env:NEO4J_USER}
+    NEO4J_PASSWORD: ${env:NEO4J_PASSWORD}
 
 functions:
   graphql:
