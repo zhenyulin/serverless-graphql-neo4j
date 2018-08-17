@@ -6,20 +6,21 @@ frameworkVersion: ">=1.1.0 <2.0.0"
 provider:
   name: aws
   runtime: nodejs8.10
-  deploymentBucket: ${self:service}-artefacts-${self:provider.region}
-  region: ${opt:region, self:custom.defaultRegion}
   stage: ${opt:stage, 'dev'}
+  region: ${opt:region, self:custom.defaultRegion}
+  deploymentBucket: ${self:service}-artefacts-${self:provider.region}
 
 functions:
   graphql:
     handler: src/server.default
+    memorySize: 256
     events:
       - http:
-          path: graphql
+          path: ${self:provider.stage}/graphql
           method: post
           cors: true
       - http:
-          path: graphql
+          path: ${self:provider.stage}/graphql
           method: get
           cors: true
 
