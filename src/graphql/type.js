@@ -3,14 +3,15 @@ export default `
 		id: ID!
 		name: String
 		email: String!
-		address: Address
-		paymentCard: PaymentCard
+		address: Address @relation(name: "HAS_ADDRESS", direction: "OUT")
+		paymentCard: PaymentCard @relation(name: "HAS_PAYMENT_CARD", direction: "OUT")
 		follows: [User] @relation(name: "FOLLOWS", direction: "OUT")
 		followers: [User] @relation(name: "FOLLOWS", direction: "IN")
 		likes: [Item] @relation(name: "LIKES", direction: "OUT")
 	}
 
 	type Item {
+		likedBy: [User] @relation(name: "LIKES", direction: "IN")
 		id: ID!
 		name: String
 	}
@@ -39,9 +40,7 @@ export default `
 
 	type Query {
 		Users: [User]
-		User(id: ID, email: String): User
-		UserLikesItem(itemId: ID!): [User] @cypher(statement: "MATCH (i:Item) <- [r:LIKES] - (u:User) RETURN u")
-		UserFollowsdUser(userId: ID!): [User] @cypher(statement: "MATCH (u:user) <- [r:FOLLOWS] - (followers:User) RETURN followers")
+		User(id: ID!): User
 		Items: [Item]
 		Item(id: ID!): Item
 	}

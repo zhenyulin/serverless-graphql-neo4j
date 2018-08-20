@@ -5,8 +5,6 @@ export default {
 	Query: {
 		Users: (...args) => neo4jgraphql(...args),
 		User: (...args) => neo4jgraphql(...args),
-		UserLikesItem: (...args) => neo4jgraphql(...args),
-		UserFollowsdUser: (...args) => neo4jgraphql(...args),
 		Items: (...args) => neo4jgraphql(...args),
 		Item: (...args) => neo4jgraphql(...args),
 	},
