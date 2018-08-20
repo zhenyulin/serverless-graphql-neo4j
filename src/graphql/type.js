@@ -48,5 +48,7 @@ export default `
 
 	type Mutation {
 		AddUserFollower(userId: ID!, followerId: ID!): User
+		RemoveUserFollower(userId: ID!, followerId: ID!): User
+		AddUserItem(userId: ID!, itemId: ID!): User
 	}
 `;
