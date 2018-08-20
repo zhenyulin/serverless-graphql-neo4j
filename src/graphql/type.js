@@ -39,9 +39,14 @@ export default `
 
 	type Query {
 		Users: [User]
-		User(id: ID!, email: String, ): User
-		UserByLikedItem(itemId: ID!): [User] @cypher(statement: "MATCH (i:Item) <- [r:LIKES] - (u:User) RETURN u")
+		User(id: ID, email: String): User
+		UserLikesItem(itemId: ID!): [User] @cypher(statement: "MATCH (i:Item) <- [r:LIKES] - (u:User) RETURN u")
+		UserFollowsdUser(userId: ID!): [User] @cypher(statement: "MATCH (u:user) <- [r:FOLLOWS] - (followers:User) RETURN followers")
 		Items: [Item]
 		Item(id: ID!): Item
+	}
+
+	type Mutation {
+		AddUserFollower(userId: ID!, followerId: ID!): User
 	}
 `;
