@@ -3,45 +3,69 @@ import { driver } from '../server';
 
 export default {
 	Query: {
-		Users: (...args) => neo4jgraphql(...args),
 		User: (...args) => neo4jgraphql(...args),
-		Items: (...args) => neo4jgraphql(...args),
+		Users: (...args) => neo4jgraphql(...args),
 		Item: (...args) => neo4jgraphql(...args),
+		Items: (...args) => neo4jgraphql(...args),
 	},
 	Mutation: {
-		AddUserFollower: async (_, { userId, followerId }) => {
+		UserFollowUser: async (_, { followerId, followeeId }) => {
 			const session = driver.session();
-			const result = await session.run(`
-				MATCH (user:User {id: "${userId}"})
-				MATCH (follower:User {id: "${followerId}"})
-				MERGE (user)<-[:FOLLOWS]-(follower)
-				RETURN user { .*, followers: [(user)<-[:FOLLOWS]-(user_followers:User) | user_followers { .id }] } AS user
-			`);
-			session.close();
-			return result.records[0].get(0);
+			try {
+				const result = await session.run(`
+					MATCH (follower:User {id: "${followerId}"})
+					MATCH (followee:User {id: "${followeeId}"})
+					MERGE (follower)-[:FOLLOW]->(followee)
+					RETURN follower { .*, followees: [(follower)-[:FOLLOW]->(user_followees:User) | user_followees { .* }] } AS user
+				`);
+				return result.records[0].get(0);
+			} finally {
+				session.close();
+			}
 		},
-		RemoveUserFollower: async (_, { userId, followerId }) => {
+		UserUnfollowUser: async (_, { followerId, followeeId }) => {
 			const session = driver.session();
-			const result = await session.run(`
-				MATCH (user:User {id: "${userId}"})
-				MATCH (follower:User {id: "${followerId}"})
-				OPTIONAL MATCH (follower)-[follow:FOLLOWS]->(user)
-				DELETE follow
-				RETURN user { .*, followers: [(user)<-[:FOLLOWS]-(user_followers:User) | user_followers { .id }] } AS user;
-			`);
-			session.close();
-			return result.records[0].get(0);
+			try {
+				const result = await session.run(`
+					MATCH (follower:User {id: "${followerId}"})
+					MATCH (followee:User {id: "${followeeId}"})
+					OPTIONAL MATCH (follower)-[follow:FOLLOW]->(followee)
+					DELETE follow
+					RETURN follower { .*, followees: [(follower)-[:FOLLOW]->(followees:User) | followees { .* }] } AS user;
+				`);
+				return result.records[0].get(0);
+			} finally {
+				session.close();
+			}
 		},
-		AddUserItem: async (_, { userId, itemId }) => {
+		UserLikeItem: async (_, { userId, itemId }) => {
 			const session = driver.session();
-			const result = await session.run(`
-				MATCH (user:User {id: "${userId}"})
-				MATCH (item:Item {id: "${itemId}"})
-				MERGE (item)<-[:LIKES]-(user)
-				RETURN user { .*, likes: [(items:Item)<-[:LIKES]-(user) | items { .id }] } AS user
-			`);
-			session.close();
-			return result.records[0].get(0);
+			try {
+				const result = await session.run(`
+					MATCH (user:User {id: "${userId}"})
+					MATCH (item:Item {id: "${itemId}"})
+					MERGE (user)-[:LIKE]->(item)
+					RETURN user { .*, likeItems: [(user)-[:LIKE]->(items:Item) | items { .* }] } AS user
+				`);
+				return result.records[0].get(0);
+			} finally {
+				session.close();
+			}
+		},
+		UserDislikeItem: async (_, { userId, itemId }) => {
+			const session = driver.session();
+			try {
+				const result = await session.run(`
+					MATCH (user:User {id: "${userId}"})
+					MATCH (item:Item {id: "${itemId}"})
+					OPTIONAL MATCH (user)-[like:LIKE]->(item)
+					DELETE like
+					RETURN user { .*, likeItems: [(user)-[:LIKE]->(items:Item) | items { .* }] } AS user
+				`);
+				return result.records[0].get(0);
+			} finally {
+				session.close();
+			}
 		},
 	},
 };
