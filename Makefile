@@ -18,9 +18,6 @@ lint-fix:
 	@echo 'lint-fixing…'
 	@eslint src --fix
 
-lint-watch:
-	@nodemon --watch src -q --exec 'make lint-fix'
-
 test:
 	@jest
 
