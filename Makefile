@@ -18,6 +18,9 @@ lint-fix:
 	@echo 'lint-fixing…'
 	@eslint src --fix
 
+test-setup:
+	neo4j-test
+
 test:
 	@jest
 

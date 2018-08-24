@@ -6,6 +6,8 @@ cache:
     - node_modules
 install:
   - make install
+before_script:
+  - make test-setup & sleep 5
 script:
   - make test-coverage
 after_success:
