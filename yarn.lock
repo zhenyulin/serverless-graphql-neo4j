@@ -5372,13 +5372,6 @@ neo4j-graphql-js@^0.1.32:
     lodash "^4.17.10"
     neo4j-driver "^1.6.1"
 
-neo4j-test@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/neo4j-test/-/neo4j-test-1.1.0.tgz#3a3e84bc65c7b944d8f224182d2d3cc9b41c416d"
-  dependencies:
-    node-getopt "^0.2.3"
-    shelljs "^0.2.6"
-
 nice-try@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.4.tgz#d93962f6c52f2c1558c0fbda6d512819f1efe1c4"
@@ -5400,10 +5393,6 @@ node-fetch@^1.0.1, node-fetch@^1.6.0:
 node-fetch@^2.1.2:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.2.0.tgz#4ee79bde909262f9775f731e3656d0db55ced5b5"
-
-node-getopt@^0.2.3:
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/node-getopt/-/node-getopt-0.2.4.tgz#3afb554717e5479f4bb10eb7327504650811c7a2"
 
 node-int64@^0.4.0:
   version "0.4.0"
@@ -6723,10 +6712,6 @@ shebang-regex@^1.0.0:
 shelljs@0.3.x:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.3.0.tgz#3596e6307a781544f591f37da618360f31db57b1"
-
-shelljs@^0.2.6:
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.2.6.tgz#90492d72ffcc8159976baba62fb0f6884f0c3378"
 
 shellwords@^0.1.1:
   version "0.1.1"
