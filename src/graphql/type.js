@@ -16,7 +16,7 @@ export default `
 
 	type Query {
 		User(id: ID!): User
-		Users: [User]
+		Users(orderBy: String): [User]
 		Item(id: ID!): Item
 		Items: [Item]
 	}

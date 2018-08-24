@@ -22,16 +22,13 @@ lint-watch:
 	@nodemon --watch src -q --exec 'make lint-fix'
 
 test:
-	@jest --config jest.config.js
+	@jest
 
 test-watch:
-	@jest --watch --config jest.config.js
+	@jest --watch
 
 test-coverage:
-	@jest --coverage --config jest.config.js
-
-integration-test:
-	@INTEGRATION_TEST=true jest --config jest.config.js
+	@jest --coverage
 
 deploy:
 	@sls deploy --verbose --stage dev --region eu-west-1

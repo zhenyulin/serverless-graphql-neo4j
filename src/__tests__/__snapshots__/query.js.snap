@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Query Users get all users 1`] = `
+Object {
+  "data": Object {
+    "Users": Array [
+      Object {
+        "followees": Array [],
+        "followers": Array [],
+        "id": "4edd40c86762e0fb12000005",
+        "likeItems": Array [],
+        "name": "Miles Davis",
+      },
+      Object {
+        "followees": Array [
+          Object {
+            "name": "John Cage",
+          },
+        ],
+        "followers": Array [],
+        "id": "4edd40c86762e0fb12000004",
+        "likeItems": Array [
+          Object {
+            "name": "4:00",
+          },
+        ],
+        "name": "John Lennon",
+      },
+      Object {
+        "followees": Array [],
+        "followers": Array [
+          Object {
+            "name": "John Lennon",
+          },
+        ],
+        "id": "4edd40c86762e0fb12000003",
+        "likeItems": Array [],
+        "name": "John Cage",
+      },
+    ],
+  },
+}
+`;
