@@ -39,7 +39,6 @@ export const loadData = async () => {
 		await createUserFollowUsers();
 		await createUserLikeItems();
 	} catch (e) {
-		// statements
 		console.log(e);
 	}
 };
