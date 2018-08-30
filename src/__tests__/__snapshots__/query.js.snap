@@ -1,5 +1,111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Query Item get item by id 1`] = `
+Object {
+  "data": Object {
+    "Item": Object {
+      "id": "4edd40c86762e0fb12000015",
+      "likedByUsers": Array [],
+      "name": "Birth of Cool",
+    },
+  },
+}
+`;
+
+exports[`Query Item return null if item not found 1`] = `
+Object {
+  "data": Object {
+    "Item": null,
+  },
+}
+`;
+
+exports[`Query Item throw error if id is not provided 1`] = `
+Object {
+  "errors": Array [
+    [GraphQLError: Syntax Error: Expected Name, found )],
+  ],
+}
+`;
+
+exports[`Query Item throw error if id is not valid id 1`] = `
+Object {
+  "data": Object {
+    "Item": null,
+  },
+}
+`;
+
+exports[`Query Items get all items 1`] = `
+Object {
+  "data": Object {
+    "Items": Array [
+      Object {
+        "id": "4edd40c86762e0fb12000013",
+        "likedByUsers": Array [],
+        "name": "Imagine",
+      },
+      Object {
+        "id": "4edd40c86762e0fb12000015",
+        "likedByUsers": Array [],
+        "name": "Birth of Cool",
+      },
+      Object {
+        "id": "4edd40c86762e0fb12000014",
+        "likedByUsers": Array [
+          Object {
+            "name": "John Lennon",
+          },
+        ],
+        "name": "4:00",
+      },
+    ],
+  },
+}
+`;
+
+exports[`Query User get user by id 1`] = `
+Object {
+  "data": Object {
+    "User": Object {
+      "followees": Array [],
+      "followers": Array [
+        Object {
+          "name": "John Lennon",
+        },
+      ],
+      "id": "4edd40c86762e0fb12000003",
+      "likeItems": Array [],
+      "name": "John Cage",
+    },
+  },
+}
+`;
+
+exports[`Query User return null if user not found 1`] = `
+Object {
+  "data": Object {
+    "User": null,
+  },
+}
+`;
+
+exports[`Query User throw error if id is not provided 1`] = `
+Object {
+  "errors": Array [
+    [GraphQLError: Syntax Error: Expected Name, found )],
+  ],
+}
+`;
+
+exports[`Query User throw error if id is not valid id 1`] = `
+Object {
+  "data": Object {
+    "User": null,
+  },
+}
+`;
+
 exports[`Query Users get all users 1`] = `
 Object {
   "data": Object {

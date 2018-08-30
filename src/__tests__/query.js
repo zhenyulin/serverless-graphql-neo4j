@@ -23,11 +23,11 @@ describe('Query', () => {
 		driver.close();
 	});
 
-	describe('Users', () => {
+	describe('User', () => {
 		testCases({
-			'get all users': `
+			'get user by id': `
 				query {
-					Users(orderBy: "name_desc") {
+					User(id: "4edd40c86762e0fb12000003") {
 						id
 						name
 						followees {
@@ -37,6 +37,108 @@ describe('Query', () => {
 							name
 						}
 						likeItems {
+							name
+						}
+					}
+				}
+			`,
+			'return null if user not found': `
+				query {
+					User(id: "4edd40c86762e0fb12000099") {
+						id
+						name
+					}
+				}
+			`,
+			'throw error if id is not provided': `
+				query {
+					User() {
+						id
+						name
+					}
+				}
+			`,
+			'throw error if id is not valid id': `
+				query {
+					User(id: "random") {
+						id
+						name
+					}
+				}
+			`,
+		});
+	});
+
+	describe('Users', () => {
+		testCases({
+			'get all users': `
+				query {
+					Users(orderBy: name_desc) {
+						id
+						name
+						followees {
+							name
+						}
+						followers {
+							name
+						}
+						likeItems {
+							name
+						}
+					}
+				}
+			`,
+		});
+	});
+
+	describe('Item', () => {
+		testCases({
+			'get item by id': `
+				query {
+					Item(id: "4edd40c86762e0fb12000015") {
+						id
+						name
+						likedByUsers {
+							name
+						}
+					}
+				}
+			`,
+			'return null if item not found': `
+				query {
+					Item(id: "4edd40c86762e0fb12000099") {
+						id
+						name
+					}
+				}
+			`,
+			'throw error if id is not provided': `
+				query {
+					Item() {
+						id
+						name
+					}
+				}
+			`,
+			'throw error if id is not valid id': `
+				query {
+					Item(id: "random") {
+						id
+						name
+					}
+				}
+			`,
+		});
+	});
+
+	describe('Items', () => {
+		testCases({
+			'get all items': `
+				query {
+					Items(orderBy: name_desc) {
+						id
+						name
+						likedByUsers {
 							name
 						}
 					}
