@@ -9,8 +9,8 @@ export const runCypher = async (cypher, param) => {
 	// console.log(cypher);
 	const session = driver.session();
 	try {
-		const result = await session.run(cypher, param);
-		return result;
+		const { records } = await session.run(cypher, param);
+		return records.map(r => r.get(0).properties);
 	} finally {
 		session.close();
 	}

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Mutation CreateUser return the created user 1`] = `
+Object {
+  "data": Object {
+    "CreateUser": Object {
+      "name": "Jack Daniel",
+    },
+  },
+}
+`;
+
+exports[`Mutation CreateUser throws error if email already existed 1`] = `
+Object {
+  "data": Object {
+    "CreateUser": Object {
+      "email": "john.cage@test.com",
+      "name": "Jack Daniel",
+    },
+  },
+}
+`;
+
+exports[`Mutation CreateUser throws error if email is missing 1`] = `
+Object {
+  "errors": Array [
+    [GraphQLError: Field "CreateUser" argument "email" of type "String!" is required but not provided.],
+  ],
+}
+`;
