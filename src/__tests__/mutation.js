@@ -16,7 +16,6 @@ describe('Mutation', () => {
 	});
 
 	afterAll(async () => {
-		await emptyData();
 		driver.close();
 	});
 

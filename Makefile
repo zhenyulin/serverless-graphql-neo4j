@@ -19,13 +19,13 @@ lint-fix:
 	@eslint src --fix
 
 test:
-	@jest
+	@jest --runInBand
 
 test-watch:
-	@jest --watch
+	@jest --watch --runInBand
 
 test-coverage:
-	@jest --coverage
+	@jest --coverage --runInBand
 
 deploy:
 	@sls deploy --verbose --stage dev --region eu-west-1
