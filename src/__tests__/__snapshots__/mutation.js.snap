@@ -18,8 +18,11 @@ Object {
 
 exports[`Mutation CreateItem throw error if name is missing 1`] = `
 Object {
+  "data": Object {
+    "CreateItem": null,
+  },
   "errors": Array [
-    [GraphQLError: Syntax Error: Expected Name, found )],
+    [GraphQLError: Cannot return null for non-nullable field Item.name.],
   ],
 }
 `;
@@ -48,8 +51,11 @@ Object {
 
 exports[`Mutation CreateUser throws error if email is missing 1`] = `
 Object {
+  "data": Object {
+    "CreateUser": null,
+  },
   "errors": Array [
-    [GraphQLError: Field "CreateUser" argument "email" of type "String!" is required but not provided.],
+    [GraphQLError: Cannot return null for non-nullable field User.email.],
   ],
 }
 `;
@@ -57,22 +63,22 @@ Object {
 exports[`Mutation DeleteItem return the deleted item 1`] = `
 Object {
   "data": Object {
-    "DeleteItem": Object {
-      "id": "4edd40c86762e0fb12000013",
-      "name": "Imagine",
-    },
+    "DeleteItem": null,
   },
+  "errors": Array [
+    [GraphQLError: Cannot return null for non-nullable field Item.id.],
+  ],
 }
 `;
 
 exports[`Mutation DeleteUser return the deleted user 1`] = `
 Object {
   "data": Object {
-    "DeleteUser": Object {
-      "id": "4edd40c86762e0fb12000004",
-      "name": "John Lennon",
-    },
+    "DeleteUser": null,
   },
+  "errors": Array [
+    [GraphQLError: Cannot return null for non-nullable field User.id.],
+  ],
 }
 `;
 
@@ -109,7 +115,11 @@ exports[`Mutation UserFollowUser return the updated follower 1`] = `
 Object {
   "data": Object {
     "UserFollowUser": Object {
-      "followees": null,
+      "followees": Array [
+        Object {
+          "name": "John Lennon",
+        },
+      ],
       "id": "4edd40c86762e0fb12000005",
       "name": "Miles Davis",
     },
@@ -117,13 +127,17 @@ Object {
 }
 `;
 
-exports[`Mutation UserFollowUser will not create duplicated follow connections 1`] = `Object {}`;
+exports[`Mutation UserFollowUser will not create duplicated follow connections 1`] = `
+Array [
+  Object {},
+]
+`;
 
 exports[`Mutation UserUnfollowUser return the updated follower 1`] = `
 Object {
   "data": Object {
     "UserUnfollowUser": Object {
-      "followees": null,
+      "followees": Array [],
       "id": "4edd40c86762e0fb12000004",
       "name": "John Lennon",
     },
@@ -131,4 +145,8 @@ Object {
 }
 `;
 
-exports[`Mutation UserUnfollowUser return the updated follower 2`] = `Object {}`;
+exports[`Mutation UserUnfollowUser return the updated follower 2`] = `
+Array [
+  Object {},
+]
+`;

@@ -5460,20 +5460,12 @@ neo-async@^2.5.0:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.5.1.tgz#acb909e327b1e87ec9ef15f41b8a269512ad41ee"
 
-neo4j-driver@^1.6.1, neo4j-driver@^1.6.3:
+neo4j-driver@^1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/neo4j-driver/-/neo4j-driver-1.6.3.tgz#b7a51bac401bd341082dff7766e8643d61752eb7"
   dependencies:
     babel-runtime "^6.18.0"
     uri-js "^4.2.1"
-
-neo4j-graphql-js@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/neo4j-graphql-js/-/neo4j-graphql-js-0.2.0.tgz#1c3df679f643270ad59c4df02e69454cf41e6ee3"
-  dependencies:
-    graphql "^0.13.2"
-    lodash "^4.17.10"
-    neo4j-driver "^1.6.1"
 
 nice-try@^1.0.4:
   version "1.0.4"

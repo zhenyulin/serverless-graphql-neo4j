@@ -8,7 +8,7 @@ const testCases = cases =>
 	Object.keys(cases).map(caseName =>
 		it(caseName, async () => {
 			const query = cases[caseName];
-			const result = await graphql(schema, query, null, { driver });
+			const result = await graphql(schema, query);
 			expect(result).toMatchSnapshot();
 		}),
 	);
@@ -73,7 +73,7 @@ describe('Query', () => {
 		testCases({
 			'get all users': `
 				query {
-					Users(orderBy: name_desc) {
+					Users {
 						id
 						name
 						followees {
@@ -135,7 +135,7 @@ describe('Query', () => {
 		testCases({
 			'get all items': `
 				query {
-					Items(orderBy: name_desc) {
+					Items {
 						id
 						name
 						likedByUsers {

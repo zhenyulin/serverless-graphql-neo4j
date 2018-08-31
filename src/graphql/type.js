@@ -3,15 +3,24 @@ export default `
 		id: ID!
 		name: String
 		email: String!
-		followees: [User] @relation(name: "FOLLOW", direction: "OUT")
-		followers: [User] @relation(name: "FOLLOW", direction: "IN")
-		likeItems: [Item] @relation(name: "LIKE", direction: "OUT")
+		followees: [User]
+		followers: [User]
+		likeItems: [Item]
+	}
+
+	input UserInput {
+		name: String
+		email: String
 	}
 
 	type Item {
 		id: ID!
 		name: String!
-		likedByUsers: [User] @relation(name: "LIKE", direction: "IN")
+		likedByUsers: [User]
+	}
+
+	input ItemInput {
+		name: String
 	}
 
 	type Query {
@@ -22,6 +31,12 @@ export default `
 	}
 
 	type Mutation {
+		CreateUser(user: UserInput): User
+		UpdateUser(id: ID!, user: UserInput): User
+		DeleteUser(id: ID!): User
+		CreateItem(item: ItemInput): Item
+		UpdateItem(id: ID!, item: ItemInput): Item
+		DeleteItem(id: ID!): Item
 		UserFollowUser(followerId: ID!, followeeId: ID!): User
 		UserUnfollowUser(followerId: ID!, followeeId: ID!): User
 		UserLikeItem(userId: ID!, itemId: ID!): User

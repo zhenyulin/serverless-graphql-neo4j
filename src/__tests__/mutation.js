@@ -1,11 +1,11 @@
 import { graphql } from 'graphql';
 
-import driver, { runCypher } from 'lib/neo4j';
+import driver, { runCypher, runCypherOne } from 'lib/neo4j';
 import { emptyData, loadData } from 'lib/load-data';
 import schema from 'graphql/schema';
 
 const testQuery = async query => {
-	const result = await graphql(schema, query, null, { driver });
+	const result = await graphql(schema, query);
 	expect(result).toMatchSnapshot();
 };
 
@@ -21,20 +21,20 @@ describe('Mutation', () => {
 
 	describe('CreateUser', () => {
 		it('return the created user', async () => {
-			const initState = await runCypher(`
+			const initState = await runCypherOne(`
 				MATCH (u:User { email: "jack.daniel@test.com" })
 				RETURN u
 			`);
 			expect(initState).toBe(undefined);
 			await testQuery(`
 				mutation {
-					CreateUser(name: "Jack Daniel", email: "jack.daniel@test.com") {
+					CreateUser(user: { name: "Jack Daniel", email: "jack.daniel@test.com" }) {
 						name
 						email
 					}
 				}
 			`);
-			const result = await runCypher(`
+			const result = await runCypherOne(`
 				MATCH (u:User { email: "jack.daniel@test.com" })
 				RETURN u
 			`);
@@ -44,7 +44,7 @@ describe('Mutation', () => {
 		it('throws error if email already existed', async () => {
 			await testQuery(`
 				mutation {
-					CreateUser(name: "Jack Daniel", email: "john.cage@test.com") {
+					CreateUser(user: { name: "Jack Daniel", email: "john.cage@test.com" }) {
 						name
 						email
 					}
@@ -55,7 +55,7 @@ describe('Mutation', () => {
 		it('throws error if email is missing', async () => {
 			await testQuery(`
 				mutation {
-					CreateUser(name: "Jack Daniel") {
+					CreateUser(user: { name: "Jack Daniel" }) {
 						name
 						email
 					}
@@ -68,13 +68,13 @@ describe('Mutation', () => {
 		it('return the updated user', async () => {
 			await testQuery(`
 				mutation {
-					UpdateUser(id: "4edd40c86762e0fb12000004", name: "John Lemon"){
+					UpdateUser(id: "4edd40c86762e0fb12000004", user:  { name: "John Lemon" }){
 						id
 						name
 					}
 				}
 			`);
-			const result = await runCypher(`
+			const result = await runCypherOne(`
 				MATCH (u:User { id: "4edd40c86762e0fb12000004" })
 				RETURN u
 			`);
@@ -92,7 +92,7 @@ describe('Mutation', () => {
 					}
 				}
 			`);
-			const result = await runCypher(`
+			const result = await runCypherOne(`
 				MATCH (u:User { id: "4edd40c86762e0fb12000004" })
 				RETURN u
 			`);
@@ -104,12 +104,12 @@ describe('Mutation', () => {
 		it('return the created item', async () => {
 			await testQuery(`
 				mutation {
-					CreateItem(name: "2046"){
+					CreateItem(item: { name: "2046" }){
 						name
 					}
 				}
 			`);
-			const result = await runCypher(`
+			const result = await runCypherOne(`
 				MATCH (i:Item { name: "2046" })
 				RETURN i
 			`);
@@ -119,7 +119,7 @@ describe('Mutation', () => {
 		it('throw error if name is missing', async () => {
 			await testQuery(`
 				mutation {
-					CreateItem(){
+					CreateItem(item: {}){
 						name
 					}
 				}
@@ -131,13 +131,13 @@ describe('Mutation', () => {
 		it('return the updated item', async () => {
 			await testQuery(`
 				mutation {
-					UpdateItem(id: "4edd40c86762e0fb12000013", name: "Working Class Hero"){
+					UpdateItem(id: "4edd40c86762e0fb12000013", item: { name: "Working Class Hero" }){
 						id
 						name
 					}
 				}
 			`);
-			const result = await runCypher(`
+			const result = await runCypherOne(`
 				MATCH (i:Item { id: "4edd40c86762e0fb12000013" })
 				RETURN i
 			`);
@@ -155,7 +155,7 @@ describe('Mutation', () => {
 					}
 				}
 			`);
-			const result = await runCypher(`
+			const result = await runCypherOne(`
 				MATCH (i:Item { id: "4edd40c86762e0fb12000013" })
 				RETURN i
 			`);

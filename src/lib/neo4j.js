@@ -11,9 +11,21 @@ export const runCypher = async (cypher, param, debug) => {
 	try {
 		const { records } = await session.run(cypher, param);
 		const items = records.map(r => r.get(0).properties);
-		const result = items.length > 1 ? items : items[0];
-		if (debug) console.log(result);
-		return result;
+		if (debug) console.log(items);
+		return items;
+	} finally {
+		session.close();
+	}
+};
+
+export const runCypherOne = async (cypher, param, debug) => {
+	if (debug) console.log(cypher);
+	const session = driver.session();
+	try {
+		const { records } = await session.run(cypher, param);
+		const items = records.map(r => r.get(0).properties);
+		if (debug) console.log(items);
+		return items[0];
 	} finally {
 		session.close();
 	}

@@ -46,11 +46,6 @@ Object {
         "name": "Imagine",
       },
       Object {
-        "id": "4edd40c86762e0fb12000015",
-        "likedByUsers": Array [],
-        "name": "Birth of Cool",
-      },
-      Object {
         "id": "4edd40c86762e0fb12000014",
         "likedByUsers": Array [
           Object {
@@ -58,6 +53,11 @@ Object {
           },
         ],
         "name": "4:00",
+      },
+      Object {
+        "id": "4edd40c86762e0fb12000015",
+        "likedByUsers": Array [],
+        "name": "Birth of Cool",
       },
     ],
   },
@@ -112,10 +112,14 @@ Object {
     "Users": Array [
       Object {
         "followees": Array [],
-        "followers": Array [],
-        "id": "4edd40c86762e0fb12000005",
+        "followers": Array [
+          Object {
+            "name": "John Lennon",
+          },
+        ],
+        "id": "4edd40c86762e0fb12000003",
         "likeItems": Array [],
-        "name": "Miles Davis",
+        "name": "John Cage",
       },
       Object {
         "followees": Array [
@@ -123,7 +127,11 @@ Object {
             "name": "John Cage",
           },
         ],
-        "followers": Array [],
+        "followers": Array [
+          Object {
+            "name": "John Cage",
+          },
+        ],
         "id": "4edd40c86762e0fb12000004",
         "likeItems": Array [
           Object {
@@ -134,14 +142,10 @@ Object {
       },
       Object {
         "followees": Array [],
-        "followers": Array [
-          Object {
-            "name": "John Lennon",
-          },
-        ],
-        "id": "4edd40c86762e0fb12000003",
+        "followers": Array [],
+        "id": "4edd40c86762e0fb12000005",
         "likeItems": Array [],
-        "name": "John Cage",
+        "name": "Miles Davis",
       },
     ],
   },
