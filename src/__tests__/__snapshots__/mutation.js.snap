@@ -1,9 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Mutation CreateItem return the created item 1`] = `
+Object {
+  "data": Object {
+    "CreateItem": Object {
+      "name": "2046",
+    },
+  },
+}
+`;
+
+exports[`Mutation CreateItem return the created item 2`] = `
+Object {
+  "name": "2046",
+}
+`;
+
+exports[`Mutation CreateItem throw error if name is missing 1`] = `
+Object {
+  "errors": Array [
+    [GraphQLError: Syntax Error: Expected Name, found )],
+  ],
+}
+`;
+
 exports[`Mutation CreateUser return the created user 1`] = `
 Object {
   "data": Object {
     "CreateUser": Object {
+      "email": "jack.daniel@test.com",
       "name": "Jack Daniel",
     },
   },
@@ -28,3 +53,82 @@ Object {
   ],
 }
 `;
+
+exports[`Mutation DeleteItem return the deleted item 1`] = `
+Object {
+  "data": Object {
+    "DeleteItem": Object {
+      "id": "4edd40c86762e0fb12000013",
+      "name": "Imagine",
+    },
+  },
+}
+`;
+
+exports[`Mutation DeleteUser return the deleted user 1`] = `
+Object {
+  "data": Object {
+    "DeleteUser": Object {
+      "id": "4edd40c86762e0fb12000004",
+      "name": "John Lennon",
+    },
+  },
+}
+`;
+
+exports[`Mutation UpdateItem return the updated item 1`] = `
+Object {
+  "data": Object {
+    "UpdateItem": Object {
+      "id": "4edd40c86762e0fb12000013",
+      "name": "Working Class Hero",
+    },
+  },
+}
+`;
+
+exports[`Mutation UpdateItem return the updated item 2`] = `
+Object {
+  "id": "4edd40c86762e0fb12000013",
+  "name": "Working Class Hero",
+}
+`;
+
+exports[`Mutation UpdateUser return the updated user 1`] = `
+Object {
+  "data": Object {
+    "UpdateUser": Object {
+      "id": "4edd40c86762e0fb12000004",
+      "name": "John Lemon",
+    },
+  },
+}
+`;
+
+exports[`Mutation UserFollowUser return the updated follower 1`] = `
+Object {
+  "data": Object {
+    "UserFollowUser": Object {
+      "followees": null,
+      "id": "4edd40c86762e0fb12000005",
+      "name": "Miles Davis",
+    },
+  },
+}
+`;
+
+exports[`Mutation UserFollowUser will not create duplicated follow connections 1`] = `Object {}`;
+
+exports[`Mutation UserUnfollowUser return the updated follower 1`] = `
+Object {
+  "data": Object {
+    "UserUnfollowUser": Object {
+      "followees": null,
+      "id": "4edd40c86762e0fb12000004",
+      "name": "John Lennon",
+    },
+  },
+}
+`;
+
+exports[`Mutation UserUnfollowUser return the updated follower 2`] = `Object {}`;

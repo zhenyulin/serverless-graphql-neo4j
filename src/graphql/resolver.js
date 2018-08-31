@@ -3,26 +3,46 @@ import { runCypher } from 'lib/neo4j';
 
 export default {
 	Query: {
-		User: (...args) => neo4jgraphql(...args),
-		Users: (...args) => neo4jgraphql(...args),
-		Item: (...args) => neo4jgraphql(...args),
-		Items: (...args) => neo4jgraphql(...args),
+		User: (...args) => neo4jgraphql(...args, false),
+		Users: (...args) => neo4jgraphql(...args, false),
+		Item: (...args) => neo4jgraphql(...args, false),
+		Items: (...args) => neo4jgraphql(...args, false),
+	},
+	User: {
+		followees: ({ id }) =>
+			runCypher(
+				`
+			MATCH (:User{id:${id}})-[:FOLLOW]->(followees:User)
+			RETURN followees
+		`,
+				{},
+				true,
+			),
+		followers: ({ id }) =>
+			runCypher(
+				`
+			MATCH (:User{id:${id}})<-[:FOLLOW]->(followers:User)
+			RETURN followers
+		`,
+				{},
+				true,
+			),
 	},
 	Mutation: {
 		UserFollowUser: (_, { followerId, followeeId }) =>
 			runCypher(`
-					MATCH (follower:User {id: "${followerId}"})
-					MATCH (followee:User {id: "${followeeId}"})
-					MERGE (follower)-[:FOLLOW]->(followee)
-					RETURN follower { .*, followees: [(follower)-[:FOLLOW]->(user_followees:User) | user_followees { .* }] } AS user
-				`),
+				MATCH (follower:User {id: "${followerId}"})
+				MATCH (followee:User {id: "${followeeId}"})
+				MERGE (follower)-[:FOLLOW]->(followee)
+				RETURN follower
+			`),
 		UserUnfollowUser: async (_, { followerId, followeeId }) =>
 			runCypher(`
 					MATCH (follower:User {id: "${followerId}"})
 					MATCH (followee:User {id: "${followeeId}"})
 					OPTIONAL MATCH (follower)-[follow:FOLLOW]->(followee)
 					DELETE follow
-					RETURN follower { .*, followees: [(follower)-[:FOLLOW]->(followees:User) | followees { .* }] } AS user;
+					RETURN follower
 				`),
 		UserLikeItem: async (_, { userId, itemId }) =>
 			runCypher(`

@@ -5,12 +5,15 @@ const driver = neo4j.driver(
 	neo4j.auth.basic(process.env.NEO4J_USER, process.env.NEO4J_PASSWORD),
 );
 
-export const runCypher = async (cypher, param) => {
-	// console.log(cypher);
+export const runCypher = async (cypher, param, debug) => {
+	if (debug) console.log(cypher);
 	const session = driver.session();
 	try {
 		const { records } = await session.run(cypher, param);
-		return records.map(r => r.get(0).properties);
+		const items = records.map(r => r.get(0).properties);
+		const result = items.length > 1 ? items : items[0];
+		if (debug) console.log(result);
+		return result;
 	} finally {
 		session.close();
 	}
