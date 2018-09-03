@@ -111,6 +111,20 @@ Object {
 }
 `;
 
+exports[`Mutation UserDislikeItem return the updated user 1`] = `
+Object {
+  "data": Object {
+    "UserDislikeItem": Object {
+      "id": "4edd40c86762e0fb12000004",
+      "likeItems": Array [],
+      "name": "John Lennon",
+    },
+  },
+}
+`;
+
+exports[`Mutation UserDislikeItem return the updated user 2`] = `Array []`;
+
 exports[`Mutation UserFollowUser return the updated follower 1`] = `
 Object {
   "data": Object {
@@ -128,6 +142,28 @@ Object {
 `;
 
 exports[`Mutation UserFollowUser will not create duplicated follow connections 1`] = `
+Array [
+  Object {},
+]
+`;
+
+exports[`Mutation UserLikeItem return the updated user 1`] = `
+Object {
+  "data": Object {
+    "UserLikeItem": Object {
+      "id": "4edd40c86762e0fb12000005",
+      "likeItems": Array [
+        Object {
+          "name": "Imagine",
+        },
+      ],
+      "name": "Miles Davis",
+    },
+  },
+}
+`;
+
+exports[`Mutation UserLikeItem will not create duplicated like connections 1`] = `
 Array [
   Object {},
 ]

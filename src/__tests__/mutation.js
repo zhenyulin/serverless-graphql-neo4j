@@ -224,4 +224,66 @@ describe('Mutation', () => {
 			expect(result).toMatchSnapshot();
 		});
 	});
+
+	describe('UserLikeItem', () => {
+		it('return the updated user', async () => {
+			await testQuery(`
+				mutation {
+					UserLikeItem(userId: "4edd40c86762e0fb12000005", itemId: "4edd40c86762e0fb12000013"){
+						id
+						name
+						likeItems {
+							name
+						}
+					}
+				}
+			`);
+		});
+
+		it('will not create duplicated like connections', async () => {
+			const query = `
+				mutation {
+					UserLikeItem(userId: "4edd40c86762e0fb12000005", itemId: "4edd40c86762e0fb12000013"){
+						id
+						name
+						likeItems {
+							name
+						}
+					}
+				}
+			`;
+			await graphql(schema, query);
+			await graphql(schema, query);
+			const result = await runCypher(`
+				MATCH (user:User)-[r:LIKE]->(item:Item)
+				WHERE user.id = "4edd40c86762e0fb12000005"
+				AND item.id = "4edd40c86762e0fb12000013"
+				RETURN r
+			`);
+			expect(result).toMatchSnapshot();
+		});
+	});
+
+	describe('UserDislikeItem', () => {
+		it('return the updated user', async () => {
+			await testQuery(`
+				mutation {
+					UserDislikeItem(userId: "4edd40c86762e0fb12000004", itemId: "4edd40c86762e0fb12000014"){
+						id
+						name
+						likeItems {
+							name
+						}
+					}
+				}
+			`);
+			const result = await runCypher(`
+				MATCH (user:User)-[r:LIKE]->(item:Item)
+				WHERE user.id = "4edd40c86762e0fb12000004"
+				AND item.id = "4edd40c86762e0fb12000014"
+				RETURN r
+			`);
+			expect(result).toMatchSnapshot();
+		});
+	});
 });

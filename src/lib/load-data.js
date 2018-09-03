@@ -33,14 +33,10 @@ export const createUserLikeItems = () =>
 	);
 
 export const loadData = async () => {
-	try {
-		await createUsers();
-		await createItems();
-		await createUserFollowUsers();
-		await createUserLikeItems();
-	} catch (e) {
-		console.log(e);
-	}
+	await createUsers();
+	await createItems();
+	await createUserFollowUsers();
+	await createUserLikeItems();
 };
 
 export const emptyData = () => runCypher(`MATCH (n) DETACH DELETE n`);
