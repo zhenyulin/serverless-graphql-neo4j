@@ -10,9 +10,14 @@ export const runCypher = async (cypher, param, debug) => {
 	const session = driver.session();
 	try {
 		const { records } = await session.run(cypher, param);
-		const items = records.map(r => r.get(0).properties);
+		const items = records
+			.map(r => r.get(0).properties)
+			.sort((a, b) => (a.id > b.id ? 1 : -1));
 		if (debug) console.log(items);
 		return items;
+	} catch (e) {
+		console.log(e);
+		throw e;
 	} finally {
 		session.close();
 	}
@@ -26,6 +31,14 @@ export const runCypherReturnOne = async (cypher, param, debug) => {
 		const items = records.map(r => r.get(0).properties);
 		if (debug) console.log(items);
 		return items[0];
+	} catch (e) {
+		if (
+			e.code &&
+			e.code === 'Neo.ClientError.Schema.ConstraintValidationFailed'
+		) {
+			e.message = 'Node with constraint properties already exists';
+		}
+		throw e;
 	} finally {
 		session.close();
 	}

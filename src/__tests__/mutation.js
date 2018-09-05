@@ -2,6 +2,7 @@ import { graphql } from 'graphql';
 
 import driver, { runCypher, runCypherReturnOne } from 'lib/neo4j';
 import { emptyData, loadData } from 'lib/load-data';
+import createConstraint from 'lib/create-constraint';
 import schema from 'graphql/schema';
 
 const testQuery = async query => {
@@ -12,6 +13,7 @@ const testQuery = async query => {
 describe('Mutation', () => {
 	beforeEach(async () => {
 		await emptyData();
+		await createConstraint();
 		await loadData();
 	});
 

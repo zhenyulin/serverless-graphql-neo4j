@@ -38,11 +38,11 @@ Object {
 exports[`Mutation CreateUser throws error if email already existed 1`] = `
 Object {
   "data": Object {
-    "CreateUser": Object {
-      "email": "john.cage@test.com",
-      "name": "Jack Daniel",
-    },
+    "CreateUser": null,
   },
+  "errors": Array [
+    [GraphQLError: Node with constraint properties already exists],
+  ],
 }
 `;
 

@@ -1,6 +1,7 @@
 import { ApolloServer } from 'apollo-server-lambda';
 
 import schema from './graphql/schema';
+import createConstraint from './lib/create-constraint';
 
 const server = new ApolloServer({
 	schema,
@@ -12,6 +13,9 @@ const server = new ApolloServer({
 	},
 });
 
-const handler = server.createHandler();
+const setupHandler = async () => {
+	await createConstraint();
+	return server.createHandler();
+};
 
-export default handler;
+export default setupHandler();
