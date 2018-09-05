@@ -18,7 +18,7 @@ export const runCypher = async (cypher, param, debug) => {
 	}
 };
 
-export const runCypherOne = async (cypher, param, debug) => {
+export const runCypherReturnOne = async (cypher, param, debug) => {
 	if (debug) console.log(cypher);
 	const session = driver.session();
 	try {

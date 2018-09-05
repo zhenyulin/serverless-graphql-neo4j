@@ -1,6 +1,6 @@
 import { graphql } from 'graphql';
 
-import driver, { runCypher, runCypherOne } from 'lib/neo4j';
+import driver, { runCypher, runCypherReturnOne } from 'lib/neo4j';
 import { emptyData, loadData } from 'lib/load-data';
 import schema from 'graphql/schema';
 
@@ -21,7 +21,7 @@ describe('Mutation', () => {
 
 	describe('CreateUser', () => {
 		it('return the created user', async () => {
-			const initState = await runCypherOne(`
+			const initState = await runCypherReturnOne(`
 				MATCH (u:User { email: "jack.daniel@test.com" })
 				RETURN u
 			`);
@@ -34,7 +34,7 @@ describe('Mutation', () => {
 					}
 				}
 			`);
-			const result = await runCypherOne(`
+			const result = await runCypherReturnOne(`
 				MATCH (u:User { email: "jack.daniel@test.com" })
 				RETURN u
 			`);
@@ -74,7 +74,7 @@ describe('Mutation', () => {
 					}
 				}
 			`);
-			const result = await runCypherOne(`
+			const result = await runCypherReturnOne(`
 				MATCH (u:User { id: "4edd40c86762e0fb12000004" })
 				RETURN u
 			`);
@@ -92,7 +92,7 @@ describe('Mutation', () => {
 					}
 				}
 			`);
-			const result = await runCypherOne(`
+			const result = await runCypherReturnOne(`
 				MATCH (u:User { id: "4edd40c86762e0fb12000004" })
 				RETURN u
 			`);
@@ -109,7 +109,7 @@ describe('Mutation', () => {
 					}
 				}
 			`);
-			const result = await runCypherOne(`
+			const result = await runCypherReturnOne(`
 				MATCH (i:Item { name: "2046" })
 				RETURN i
 			`);
@@ -137,7 +137,7 @@ describe('Mutation', () => {
 					}
 				}
 			`);
-			const result = await runCypherOne(`
+			const result = await runCypherReturnOne(`
 				MATCH (i:Item { id: "4edd40c86762e0fb12000013" })
 				RETURN i
 			`);
@@ -155,7 +155,7 @@ describe('Mutation', () => {
 					}
 				}
 			`);
-			const result = await runCypherOne(`
+			const result = await runCypherReturnOne(`
 				MATCH (i:Item { id: "4edd40c86762e0fb12000013" })
 				RETURN i
 			`);
