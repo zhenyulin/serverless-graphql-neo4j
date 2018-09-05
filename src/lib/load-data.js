@@ -1,21 +1,21 @@
 import * as Fixtures from '__fixtures__';
 
-import { runCypher, runTransaction } from './neo4j';
+import { runCypher, runTransactionWithArray } from './neo4j';
 
 export const createUsers = () =>
-	runTransaction(
+	runTransactionWithArray(
 		`CREATE (u:User $user) RETURN u`,
 		Fixtures.USERS.map(user => ({ user })),
 	);
 
 export const createItems = () =>
-	runTransaction(
+	runTransactionWithArray(
 		`CREATE (i:Item $item) RETURN i`,
 		Fixtures.ITEMS.map(item => ({ item })),
 	);
 
 export const createUserFollowUsers = () =>
-	runTransaction(
+	runTransactionWithArray(
 		`MATCH (follower:User), (followee:User)
 			WHERE follower.id = $followerId AND followee.id = $followeeId
 			CREATE (follower)-[r:FOLLOW]->(followee)
@@ -24,7 +24,7 @@ export const createUserFollowUsers = () =>
 	);
 
 export const createUserLikeItems = () =>
-	runTransaction(
+	runTransactionWithArray(
 		`MATCH (user:User), (item:Item)
 			WHERE user.id = $userId AND item.id = $itemId
 			CREATE (user)-[r:LIKE]->(item)

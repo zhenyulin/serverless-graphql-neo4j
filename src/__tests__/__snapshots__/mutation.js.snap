@@ -18,11 +18,8 @@ Object {
 
 exports[`Mutation CreateItem throw error if name is missing 1`] = `
 Object {
-  "data": Object {
-    "CreateItem": null,
-  },
   "errors": Array [
-    [GraphQLError: Cannot return null for non-nullable field Item.name.],
+    [GraphQLError: Field ItemCreate.name of required type String! was not provided.],
   ],
 }
 `;
@@ -51,11 +48,8 @@ Object {
 
 exports[`Mutation CreateUser throws error if email is missing 1`] = `
 Object {
-  "data": Object {
-    "CreateUser": null,
-  },
   "errors": Array [
-    [GraphQLError: Cannot return null for non-nullable field User.email.],
+    [GraphQLError: Field UserCreate.email of required type String! was not provided.],
   ],
 }
 `;

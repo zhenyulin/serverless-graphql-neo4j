@@ -31,7 +31,7 @@ export const runCypherReturnOne = async (cypher, param, debug) => {
 	}
 };
 
-export const runTransaction = async (cypher, params) => {
+export const runTransactionWithArray = async (cypher, params) => {
 	const session = driver.session();
 	const transaction = session.beginTransaction();
 	try {

@@ -8,7 +8,12 @@ export default `
 		likeItems: [Item]
 	}
 
-	input UserInput {
+	input UserCreate {
+		name: String
+		email: String!
+	}
+
+	input UserUpdate {
 		name: String
 		email: String
 	}
@@ -19,7 +24,11 @@ export default `
 		likedByUsers: [User]
 	}
 
-	input ItemInput {
+	input ItemCreate {
+		name: String!
+	}
+
+	input ItemUpdate {
 		name: String
 	}
 
@@ -31,11 +40,11 @@ export default `
 	}
 
 	type Mutation {
-		CreateUser(user: UserInput): User
-		UpdateUser(id: ID!, user: UserInput): User
+		CreateUser(user: UserCreate): User
+		UpdateUser(id: ID!, user: UserUpdate): User
 		DeleteUser(id: ID!): User
-		CreateItem(item: ItemInput): Item
-		UpdateItem(id: ID!, item: ItemInput): Item
+		CreateItem(item: ItemCreate): Item
+		UpdateItem(id: ID!, item: ItemUpdate): Item
 		DeleteItem(id: ID!): Item
 		UserFollowUser(followerId: ID!, followeeId: ID!): User
 		UserUnfollowUser(followerId: ID!, followeeId: ID!): User
