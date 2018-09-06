@@ -1,3 +1,5 @@
+import uuid from 'uuid';
+
 import { runCypher, runCypherReturnOne } from 'lib/neo4j';
 
 export default {
@@ -35,7 +37,10 @@ export default {
 	},
 	Mutation: {
 		CreateUser: (_, { user }) =>
-			runCypherReturnOne(`CREATE (u:User $user) RETURN u`, { user }),
+			runCypherReturnOne(`CREATE (u:User $user) SET u.id=$id RETURN u`, {
+				user,
+				id: uuid.v4(),
+			}),
 		UpdateUser: (_, { id, user }) =>
 			runCypherReturnOne(`MATCH (u:User {id:$id}) SET u+=$user RETURN u`, {
 				id,
@@ -46,7 +51,10 @@ export default {
 				id,
 			}),
 		CreateItem: (_, { item }) =>
-			runCypherReturnOne(`CREATE (i:Item $item) RETURN i`, { item }),
+			runCypherReturnOne(`CREATE (i:Item $item) SET i.id=$id RETURN i`, {
+				item,
+				id: uuid.v4(),
+			}),
 		UpdateItem: (_, { id, item }) =>
 			runCypherReturnOne(`MATCH (i:Item {id:$id}) SET i+=$item RETURN i`, {
 				id,

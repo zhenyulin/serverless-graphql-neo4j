@@ -3,8 +3,9 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server-lambda": "^2.0.4",
-    "graphql": "^14.0.0",
-    "neo4j-driver": "^1.6.3"
+    "graphql": "^0.13.0",
+    "neo4j-driver": "^1.6.3",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

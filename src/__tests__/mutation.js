@@ -1,9 +1,12 @@
 import { graphql } from 'graphql';
+import uuid from 'uuid';
 
 import driver, { runCypher, runCypherReturnOne } from 'lib/neo4j';
 import { emptyData, loadData } from 'lib/load-data';
 import createConstraint from 'lib/create-constraint';
 import schema from 'graphql/schema';
+
+uuid.v4 = jest.fn(() => 'mock-uuid-id');
 
 const testQuery = async query => {
 	const result = await graphql(schema, query);
@@ -31,6 +34,7 @@ describe('Mutation', () => {
 			await testQuery(`
 				mutation {
 					CreateUser(user: { name: "Jack Daniel", email: "jack.daniel@test.com" }) {
+						id
 						name
 						email
 					}
@@ -40,7 +44,7 @@ describe('Mutation', () => {
 				MATCH (u:User { email: "jack.daniel@test.com" })
 				RETURN u
 			`);
-			expect(result.email).toBe('jack.daniel@test.com');
+			expect(result).toMatchSnapshot();
 		});
 
 		it('throws error if email already existed', async () => {
@@ -107,6 +111,7 @@ describe('Mutation', () => {
 			await testQuery(`
 				mutation {
 					CreateItem(item: { name: "2046" }){
+						id
 						name
 					}
 				}

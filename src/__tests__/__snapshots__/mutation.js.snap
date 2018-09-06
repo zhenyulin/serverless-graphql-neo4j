@@ -4,6 +4,7 @@ exports[`Mutation CreateItem return the created item 1`] = `
 Object {
   "data": Object {
     "CreateItem": Object {
+      "id": "mock-uuid-id",
       "name": "2046",
     },
   },
@@ -12,6 +13,7 @@ Object {
 
 exports[`Mutation CreateItem return the created item 2`] = `
 Object {
+  "id": "mock-uuid-id",
   "name": "2046",
 }
 `;
@@ -29,9 +31,18 @@ Object {
   "data": Object {
     "CreateUser": Object {
       "email": "jack.daniel@test.com",
+      "id": "mock-uuid-id",
       "name": "Jack Daniel",
     },
   },
+}
+`;
+
+exports[`Mutation CreateUser return the created user 2`] = `
+Object {
+  "email": "jack.daniel@test.com",
+  "id": "mock-uuid-id",
+  "name": "Jack Daniel",
 }
 `;
 
