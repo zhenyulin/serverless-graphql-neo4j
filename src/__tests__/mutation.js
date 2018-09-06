@@ -153,7 +153,6 @@ describe('Mutation', () => {
 				mutation {
 					DeleteItem(id: "4edd40c86762e0fb12000013"){
 						id
-						name
 					}
 				}
 			`);
@@ -218,9 +217,9 @@ describe('Mutation', () => {
 				}
 			`);
 			const result = await runCypher(`
-				MATCH (follower:User {id: "4edd40c86762e0fb12000004"})
-				MATCH (followee:User {id: "4edd40c86762e0fb12000005"})
-				MERGE (follower)-[r:FOLLOW]->(followee)
+				MATCH (follower:User)-[r:FOLLOW]->(followee:User)
+				WHERE follower.id = "4edd40c86762e0fb12000004"
+				AND followee.id = "4edd40c86762e0fb12000003"
 				RETURN r
 			`);
 			expect(result).toMatchSnapshot();

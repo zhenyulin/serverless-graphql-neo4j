@@ -4,10 +4,10 @@ export default {
 	Query: {
 		User: async (_, { id }) =>
 			runCypherReturnOne(`MATCH (u:User {id:$id}) RETURN u`, { id }),
-		Users: () => runCypher(`MATCH (u:User) RETURN u`),
+		Users: () => runCypher(`MATCH (u:User) RETURN u ORDER BY u.id`),
 		Item: async (_, { id }) =>
 			runCypherReturnOne(`MATCH (i:Item {id:$id}) RETURN i`, { id }),
-		Items: () => runCypher(`MATCH (i:Item) RETURN i`),
+		Items: () => runCypher(`MATCH (i:Item) RETURN i ORDER BY i.id`),
 	},
 	User: {
 		followees: ({ id }) =>
@@ -42,7 +42,7 @@ export default {
 				user,
 			}),
 		DeleteUser: (_, { id }) =>
-			runCypherReturnOne(`MATCH (u:User {id: $id}) DETACH DELETE u RETURN u`, {
+			runCypherReturnOne(`MATCH (u:User {id: $id}) DETACH DELETE u`, {
 				id,
 			}),
 		CreateItem: (_, { item }) =>
@@ -53,7 +53,7 @@ export default {
 				item,
 			}),
 		DeleteItem: (_, { id }) =>
-			runCypherReturnOne(`MATCH (i:Item {id: $id}) DETACH DELETE i RETURN i`, {
+			runCypherReturnOne(`MATCH (i:Item {id: $id}) DETACH DELETE i`, {
 				id,
 			}),
 		UserFollowUser: async (_, { followerId, followeeId }) =>

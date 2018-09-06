@@ -10,9 +10,7 @@ export const runCypher = async (cypher, param, debug) => {
 	const session = driver.session();
 	try {
 		const { records } = await session.run(cypher, param);
-		const items = records
-			.map(r => r.get(0).properties)
-			.sort((a, b) => (a.id > b.id ? 1 : -1));
+		const items = records.map(r => r.get(0).properties);
 		if (debug) console.log(items);
 		return items;
 	} catch (e) {
@@ -44,13 +42,33 @@ export const runCypherReturnOne = async (cypher, param, debug) => {
 	}
 };
 
-export const runTransactionWithArray = async (cypher, params) => {
+export const runTransactionWithArray = async (cypher, params, debug) => {
 	const session = driver.session();
 	const transaction = session.beginTransaction();
 	try {
 		const result = [];
 		params.forEach(async param => {
+			if (debug) console.log(cypher, param);
 			const r = await transaction.run(cypher, param);
+			result.push(r);
+		});
+		await transaction.commit();
+		return result;
+	} catch (e) {
+		transaction.rollback();
+		throw e;
+	} finally {
+		session.close();
+	}
+};
+
+export const runCyphersAsTransactions = async cyphers => {
+	const session = driver.session();
+	const transaction = session.beginTransaction();
+	try {
+		const result = [];
+		cyphers.forEach(async cypher => {
+			const r = await transaction.run(cypher);
 			result.push(r);
 		});
 		await transaction.commit();
