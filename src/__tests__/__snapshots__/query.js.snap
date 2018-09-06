@@ -12,6 +12,16 @@ Object {
 }
 `;
 
+exports[`Query Item get item.averageRating 1`] = `
+Object {
+  "data": Object {
+    "Item": Object {
+      "averageRating": 3.5,
+    },
+  },
+}
+`;
+
 exports[`Query Item get item.ratedByUsers 1`] = `
 Object {
   "data": Object {
@@ -21,6 +31,12 @@ Object {
           "rating": 4,
           "user": Object {
             "name": "John Lennon",
+          },
+        },
+        Object {
+          "rating": 3,
+          "user": Object {
+            "name": "Miles Davis",
           },
         },
       ],

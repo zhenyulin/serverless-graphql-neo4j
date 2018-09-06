@@ -22,6 +22,7 @@ export default `
 	type Item {
 		id: ID!
 		name: String!
+		averageRating: Float
 		likedByUsers: [User]
 		ratedByUsers: [ItemRating]
 	}

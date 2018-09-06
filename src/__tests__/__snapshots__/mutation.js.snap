@@ -181,6 +181,12 @@ Object {
           },
           "rating": 3,
         },
+        Object {
+          "item": Object {
+            "name": "4:00",
+          },
+          "rating": 3,
+        },
       ],
     },
   },

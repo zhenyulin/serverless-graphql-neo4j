@@ -37,6 +37,7 @@ export default {
 				MATCH (user:User {id: "${id}"})
 				OPTIONAL MATCH (user)-[rated:RATE]->(item:Item)
 				RETURN item { .* } as item, rated.rating as rating
+				ORDER BY item.id
 			`,
 			);
 			const result = records.map(r => ({
@@ -47,6 +48,15 @@ export default {
 		},
 	},
 	Item: {
+		averageRating: async ({ id }) => {
+			const records = await runCypherReturnRecords(`
+				MATCH (item:Item {id:"${id}"})
+				OPTIONAL MATCH (item)<-[r:RATE]-(:User)
+				RETURN AVG(r.rating) as averageRating
+			`);
+			const result = records[0].get(0);
+			return result;
+		},
 		likedByUsers: ({ id }) =>
 			runCypher(`
 			MATCH (:Item{id:"${id}"})<-[:LIKE]-(users:User)
@@ -58,6 +68,7 @@ export default {
 				MATCH (item:Item {id: "${id}"})
 				OPTIONAL MATCH (user:User)-[rated:RATE]->(item)
 				RETURN user { .* } as user, rated.rating as rating
+				ORDER BY user.id
 			`,
 			);
 			const result = records.map(r => ({
