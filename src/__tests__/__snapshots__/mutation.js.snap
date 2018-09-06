@@ -168,6 +168,33 @@ Array [
 ]
 `;
 
+exports[`Mutation UserRateItem return the updated user 1`] = `
+Object {
+  "data": Object {
+    "UserRateItem": Object {
+      "id": "4edd40c86762e0fb12000005",
+      "name": "Miles Davis",
+      "ratedItems": Array [
+        Object {
+          "item": Object {
+            "name": "Imagine",
+          },
+          "rating": 3,
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Mutation UserRateItem return the updated user 2`] = `
+Array [
+  Object {
+    "rating": 3,
+  },
+]
+`;
+
 exports[`Mutation UserUnfollowUser return the updated follower 1`] = `
 Object {
   "data": Object {

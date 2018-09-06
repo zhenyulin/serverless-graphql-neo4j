@@ -1,6 +1,10 @@
 import uuid from 'uuid';
 
-import { runCypher, runCypherReturnOne } from 'lib/neo4j';
+import {
+	runCypher,
+	runCypherReturnRecords,
+	runCypherReturnOne,
+} from 'lib/neo4j';
 
 export default {
 	Query: {
@@ -27,6 +31,20 @@ export default {
 			MATCH (:User{id:"${id}"})-[:LIKE]->(items:Item)
 			RETURN items
 		`),
+		ratedItems: async ({ id }) => {
+			const records = await runCypherReturnRecords(
+				`
+				MATCH (user:User {id: "${id}"})
+				OPTIONAL MATCH (user)-[rated:RATE]->(item:Item)
+				RETURN item { .* } as item, rated.rating as rating
+			`,
+			);
+			const result = records.map(r => ({
+				item: r.get('item'),
+				rating: r.get('rating'),
+			}));
+			return result;
+		},
 	},
 	Item: {
 		likedByUsers: ({ id }) =>
@@ -34,6 +52,20 @@ export default {
 			MATCH (:Item{id:"${id}"})<-[:LIKE]-(users:User)
 			RETURN users
 		`),
+		ratedByUsers: async ({ id }) => {
+			const records = await runCypherReturnRecords(
+				`
+				MATCH (item:Item {id: "${id}"})
+				OPTIONAL MATCH (user:User)-[rated:RATE]->(item)
+				RETURN user { .* } as user, rated.rating as rating
+			`,
+			);
+			const result = records.map(r => ({
+				user: r.get('user'),
+				rating: r.get('rating'),
+			}));
+			return result;
+		},
 	},
 	Mutation: {
 		CreateUser: (_, { user }) =>
@@ -94,5 +126,15 @@ export default {
 					DELETE like
 					RETURN user
 				`),
+		UserRateItem: async (_, { userId, itemId, rating }) =>
+			runCypherReturnOne(
+				`
+			MATCH (user:User {id: $userId})
+			MATCH (item:Item {id: $itemId})
+			MERGE (user)-[rate:RATE {rating: $rating}]->(item)
+			RETURN user
+			`,
+				{ userId, itemId, rating },
+			),
 	},
 };

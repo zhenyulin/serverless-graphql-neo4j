@@ -292,4 +292,30 @@ describe('Mutation', () => {
 			expect(result).toMatchSnapshot();
 		});
 	});
+
+	describe('UserRateItem', () => {
+		it('return the updated user', async () => {
+			await testQuery(`
+				mutation {
+					UserRateItem(userId: "4edd40c86762e0fb12000005", itemId: "4edd40c86762e0fb12000013", rating: 3){
+						id
+						name
+						ratedItems {
+							item {
+								name
+							}
+							rating
+						}
+					}
+				}
+			`);
+			const result = await runCypher(`
+				MATCH (user:User)-[r:RATE]->(item:Item)
+				WHERE user.id = "4edd40c86762e0fb12000005"
+				AND item.id = "4edd40c86762e0fb12000013"
+				RETURN r
+			`);
+			expect(result).toMatchSnapshot();
+		});
+	});
 });

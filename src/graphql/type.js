@@ -6,6 +6,7 @@ export default `
 		followees: [User]
 		followers: [User]
 		likeItems: [Item]
+		ratedItems: [ItemRating]
 	}
 
 	input UserCreate {
@@ -22,6 +23,7 @@ export default `
 		id: ID!
 		name: String!
 		likedByUsers: [User]
+		ratedByUsers: [ItemRating]
 	}
 
 	input ItemCreate {
@@ -30,6 +32,12 @@ export default `
 
 	input ItemUpdate {
 		name: String
+	}
+
+	type ItemRating {
+		item: Item
+		user: User
+		rating: Int
 	}
 
 	type Query {
@@ -50,5 +58,6 @@ export default `
 		UserUnfollowUser(followerId: ID!, followeeId: ID!): User
 		UserLikeItem(userId: ID!, itemId: ID!): User
 		UserDislikeItem(userId: ID!, itemId: ID!): User
+		UserRateItem(userId: ID!, itemId: ID!, rating: Int!): User
 	}
 `;

@@ -17,26 +17,37 @@ export const createItems = () =>
 export const createUserFollowUsers = () =>
 	runTransactionWithArray(
 		`MATCH (follower:User), (followee:User)
-			WHERE follower.id = $followerId AND followee.id = $followeeId
-			CREATE (follower)-[r:FOLLOW]->(followee)
-			RETURN r`,
+		WHERE follower.id = $followerId AND followee.id = $followeeId
+		CREATE (follower)-[r:FOLLOW]->(followee)
+		RETURN r`,
 		Fixtures.USER_FOLLOW_USERS,
 	);
 
 export const createUserLikeItems = () =>
 	runTransactionWithArray(
 		`MATCH (user:User), (item:Item)
-			WHERE user.id = $userId AND item.id = $itemId
-			CREATE (user)-[r:LIKE]->(item)
-			RETURN r`,
+		WHERE user.id = $userId AND item.id = $itemId
+		CREATE (user)-[r:LIKE]->(item)
+		RETURN r`,
 		Fixtures.USER_LIKE_ITEMS,
 	);
 
+export const createUserRateItems = () =>
+	runTransactionWithArray(
+		`MATCH (user:User), (item:Item)
+		WHERE user.id = $userId AND item.id = $itemId
+		CREATE (user)-[r:RATE {rating: $rating}]->(item)
+		RETURN r`,
+		Fixtures.USER_RATE_ITEMS,
+	);
+
 export const loadData = async () => {
-	await createUsers();
-	await createItems();
-	await createUserFollowUsers();
-	await createUserLikeItems();
+	await Promise.all([createUsers(), createItems()]);
+	await Promise.all([
+		createUserFollowUsers(),
+		createUserLikeItems(),
+		createUserRateItems(),
+	]);
 };
 
 export const emptyData = () => runCypher(`MATCH (n) DETACH DELETE n`);

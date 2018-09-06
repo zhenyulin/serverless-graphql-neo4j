@@ -12,6 +12,23 @@ Object {
 }
 `;
 
+exports[`Query Item get item.ratedByUsers 1`] = `
+Object {
+  "data": Object {
+    "Item": Object {
+      "ratedByUsers": Array [
+        Object {
+          "rating": 4,
+          "user": Object {
+            "name": "John Lennon",
+          },
+        },
+      ],
+    },
+  },
+}
+`;
+
 exports[`Query Item return null if item not found 1`] = `
 Object {
   "data": Object {

@@ -104,6 +104,18 @@ describe('Query', () => {
 					}
 				}
 			`,
+			'get item.ratedByUsers': `
+				query {
+					Item(id: "4edd40c86762e0fb12000014") {
+						ratedByUsers {
+							user {
+								name
+							}
+							rating
+						}
+					}
+				}
+			`,
 			'return null if item not found': `
 				query {
 					Item(id: "4edd40c86762e0fb12000099") {
