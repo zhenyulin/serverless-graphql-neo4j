@@ -20,16 +20,19 @@ export default {
 			runCypher(`
 			MATCH (:User{id:"${id}"})-[:FOLLOW]->(followees:User)
 			RETURN followees
+			ORDER BY followees.id
 		`),
 		followers: ({ id }) =>
 			runCypher(`
 			MATCH (:User{id:"${id}"})<-[:FOLLOW]->(followers:User)
 			RETURN followers
+			ORDER BY followers.id
 		`),
 		likeItems: ({ id }) =>
 			runCypher(`
 			MATCH (:User{id:"${id}"})-[:LIKE]->(items:Item)
 			RETURN items
+			ORDER BY items.id
 		`),
 		ratedItems: async ({ id }) => {
 			const records = await runCypherReturnRecords(
@@ -46,6 +49,16 @@ export default {
 			}));
 			return result;
 		},
+		similarUsersLiked: async ({ id }) =>
+			runCypher(`
+			MATCH (user:User {id:"${id}"})-[:LIKE]->(userLiked:Item)
+			MATCH (similarUsers:User)-[:LIKE]->(userLiked)
+			WHERE similarUsers <> user
+			MATCH (similarUsers)-[:LIKE]->(similarUsersLiked:Item)
+			WHERE similarUsersLiked <> userLiked
+			RETURN similarUsersLiked as userMayLike
+			ORDER BY userMayLike.id
+		`),
 	},
 	Item: {
 		averageRating: async ({ id }) => {
@@ -61,6 +74,7 @@ export default {
 			runCypher(`
 			MATCH (:Item{id:"${id}"})<-[:LIKE]-(users:User)
 			RETURN users
+			ORDER BY users.id
 		`),
 		ratedByUsers: async ({ id }) => {
 			const records = await runCypherReturnRecords(

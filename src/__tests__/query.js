@@ -42,6 +42,15 @@ describe('Query', () => {
 					}
 				}
 			`,
+			'get similarUserLiked': `
+				query {
+					User(id: "4edd40c86762e0fb12000004") {
+						similarUsersLiked {
+							name
+						}
+					}
+				}
+			`,
 			'return null if user not found': `
 				query {
 					User(id: "4edd40c86762e0fb12000099") {

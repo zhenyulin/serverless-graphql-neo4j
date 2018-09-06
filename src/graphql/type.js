@@ -6,6 +6,7 @@ export default `
 		followees: [User]
 		followers: [User]
 		likeItems: [Item]
+		similarUsersLiked: [Item]
 		ratedItems: [ItemRating]
 	}
 

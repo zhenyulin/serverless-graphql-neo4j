@@ -5,7 +5,11 @@ Object {
   "data": Object {
     "Item": Object {
       "id": "4edd40c86762e0fb12000015",
-      "likedByUsers": Array [],
+      "likedByUsers": Array [
+        Object {
+          "name": "Miles Davis",
+        },
+      ],
       "name": "Birth of Cool",
     },
   },
@@ -84,15 +88,36 @@ Object {
           Object {
             "name": "John Lennon",
           },
+          Object {
+            "name": "Miles Davis",
+          },
         ],
         "name": "4:00",
       },
       Object {
         "id": "4edd40c86762e0fb12000015",
-        "likedByUsers": Array [],
+        "likedByUsers": Array [
+          Object {
+            "name": "Miles Davis",
+          },
+        ],
         "name": "Birth of Cool",
       },
     ],
+  },
+}
+`;
+
+exports[`Query User get similarUserLiked 1`] = `
+Object {
+  "data": Object {
+    "User": Object {
+      "similarUsersLiked": Array [
+        Object {
+          "name": "Birth of Cool",
+        },
+      ],
+    },
   },
 }
 `;
@@ -177,7 +202,14 @@ Object {
         "followees": Array [],
         "followers": Array [],
         "id": "4edd40c86762e0fb12000005",
-        "likeItems": Array [],
+        "likeItems": Array [
+          Object {
+            "name": "4:00",
+          },
+          Object {
+            "name": "Birth of Cool",
+          },
+        ],
         "name": "Miles Davis",
       },
     ],
