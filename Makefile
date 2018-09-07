@@ -12,11 +12,11 @@ run:
 
 lint:
 	@echo 'linting…'
-	@eslint src
+	@eslint_d src
 
 lint-fix:
 	@echo 'lint-fixing…'
-	@eslint src --fix
+	@eslint_d src --fix
 
 test:
 	@jest --runInBand
