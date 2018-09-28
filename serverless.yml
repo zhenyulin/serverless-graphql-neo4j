@@ -21,11 +21,11 @@ functions:
     memorySize: 256
     events:
       - http:
-          path: /graphql
+          path: ${self:provider.stage}/graphql
           method: post
           cors: true
       - http:
-          path: /graphql
+          path: ${self:provider.stage}/graphql
           method: get
           cors: true
 
