@@ -13,9 +13,6 @@ const server = new ApolloServer({
 	},
 });
 
-const setupHandler = async () => {
-	await createConstraint();
-	return server.createHandler();
-};
+createConstraint();
 
-export default setupHandler();
+export default server.createHandler();

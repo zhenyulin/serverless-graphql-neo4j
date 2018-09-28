@@ -10,10 +10,10 @@ provider:
   region: ${opt:region, self:custom.defaultRegion}
   deploymentBucket: ${self:service}-artefacts-${self:provider.region}
   environment:
-    NODE_ENV: ${self:provider.stage}
-    NEO4J_URI: ${env:NEO4J_URI}
-    NEO4J_USER: ${env:NEO4J_USER}
-    NEO4J_PASSWORD: ${env:NEO4J_PASSWORD}
+    # for mapping prod config to env_var when deploy the service
+    NEO4J_URI: ${env:NEO4J_URI_PROD}
+    NEO4J_USER: ${env:NEO4J_USER_PROD}
+    NEO4J_PASSWORD: ${env:NEO4J_PASSWORD_PROD}
 
 functions:
   graphql:

@@ -1,6 +1,9 @@
 export PATH := ./node_modules/.bin:$(PATH)
 SHELL := /bin/bash
 
+REGION_EU := eu-west-1
+REGION_US := us-west-2
+
 install:
 	@yarn
 
@@ -28,13 +31,19 @@ test-coverage:
 	@jest --coverage --runInBand
 
 deploy:
-	@sls deploy --verbose --stage dev --region eu-west-1
+	@sls deploy --verbose --stage dev --region $(REGION_EU)
 
-deploy-production:
-	@sls deploy --verbose --stage prod --region eu-west-1
+deploy-production-eu:
+	@sls deploy --verbose --stage prod --region $(REGION_EU)
+
+deploy-production-us:
+	@sls deploy --verbose --stage prod --region $(REGION_US)
 
 destroy:
-	@sls remove --verbose --stage dev --region eu-west-1
+	@sls remove --verbose --stage dev --region $(REGION_EU)
 
-destroy-production:
-	@sls remove --verbose --stage prod --region eu-west-1
+destroy-production-eu:
+	@sls remove --verbose --stage prod --region $(REGION_EU)
+
+destroy-production-us:
+	@sls remove --verbose --stage prod --region $(REGION_US)
